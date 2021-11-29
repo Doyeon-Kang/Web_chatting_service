@@ -2,16 +2,16 @@ const app = require("express")();
 const url = require("url");
 //루트에 대한 get 요청에 응답
 app.get("/", function(req, res){
-console.log("get:chatClient.html");
- //최초 루트 get 요청에 대해, 서버에 존재하는 chatClient.html 파일 전송
-res.sendFile("chatClient.html", {root: __dirname});
+  console.log("get:chatClient.html");
+  //최초 루트 get 요청에 대해, 서버에 존재하는 chatClient.html 파일 전송
+  res.sendFile("chatClient.html", {root: __dirname});
 });
 
 //기타 웹 리소스 요청에 응답
 app.use(function(req, res){
-const fileName = url.parse(req.url).pathname.replace("/","");
-res.sendFile(fileName, {root: __dirname});
-console.log("use:", fileName); 
+  const fileName = url.parse(req.url).pathname.replace("/","");
+  res.sendFile(fileName, {root: __dirname});
+  console.log("use:", fileName); 
 });
 
 //http 서버 생성
@@ -33,10 +33,14 @@ socket.on('connection', function(client){
   //클라이언트 고유값 생성 
   const clientID = uniqueID();
   console.log('Connection: '+ clientID);
+  client.on('serverEntrance', function(data) {
+    //클라이언트 이벤트 호출  
+    socket.sockets.emit('clientEntrance', clientID);
+  });
 
   //서버 receive 이벤트 함수(클라이언트에서 호출 할 이벤트)    
   client.on('serverReceiver', function(value){
-    //클라이언트 이베트 호출     
+    //클라이언트 이벤트 호출     
     socket.sockets.emit('clientReceiver', {clientID: clientID, message: value});  
   });
 });
