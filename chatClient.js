@@ -1,5 +1,5 @@
 window.onload = function(){ 
-  //클라이언트 소켓 생성
+  //클라이언트 소켓 생성 및 연결 
   const socket = io.connect('ws://127.0.0.1:3000');
   //DOM 참조
   const div = document.getElementById('message');
@@ -11,7 +11,7 @@ window.onload = function(){
   //텍스트 박스에 이벤트 바인딩
   txt.onkeydown = sendMessage.bind(this); 
   function sendMessage(event){     
-    if(event.keyCode == 13){
+    if(event.keyCode == 13){  // keyCode 13 == enter
       //메세지 입력 여부 체크   
       let message = event.target.value;
       if(message){
@@ -24,17 +24,15 @@ window.onload = function(){
   };
   
   socket.on('clientEntrance', function(ID) {
-    let mention = '[' + ID + '님이 입장하셨습니다]';
+    let mention = "**'" + ID + "'님이 입장하셨습니다**";
     div.innerText += mention + '\r\n';
     div.scrollTop = div.scrollHeight;   
-    console.log('check2!');
   });
 
   //클라이언트 receive 이벤트 함수(서버에서 호출할 이벤트)
-  socket.on('clientReceiver', function(data){  
-    console.log('서버에서 전송:', data.message);   
+  socket.on('clientReceiver', function(data){    
     //채팅창에 메세지 출력하기
-    let message = '['+ data.clientID + '님의 말' + '] ' + data.message;
+    let message = '['+ data.nickname + '] ' + data.message;
     div.innerText += message + '\r\n';
     //채팅창 스크롤바 내리기  
     div.scrollTop = div.scrollHeight;   

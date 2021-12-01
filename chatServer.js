@@ -1,17 +1,30 @@
-const app = require("express")();
+const app = require("express")();  // express를 이용하여 Http 서버 생성
 const url = require("url");
+const qs = require("querystring");
+let queryData;
+
 //루트에 대한 get 요청에 응답
 app.get("/", function(req, res){
-  console.log("get:chatClient.html");
-  //최초 루트 get 요청에 대해, 서버에 존재하는 chatClient.html 파일 전송
-  res.sendFile("chatClient.html", {root: __dirname});
+  console.log("get:login.html");
+  //최초 루트 get 요청에 대해, 서버에 존재하는 login.html 파일 전송
+  res.sendFile("login.html", {root: __dirname});
 });
 
+app.get("/chatServer.js", function(req, res) {
+  queryData = url.parse(req.url, true).query.nickname;
+  //console.log("get:chatClient.html");
+  res.sendFile("chatClient.html", {root: __dirname});
+})
+
+const uniqueID = function(name) {
+  return name;
+}
+
 //기타 웹 리소스 요청에 응답
-app.use(function(req, res){
+app.use(function(req, res){ // html, js, css 등
   const fileName = url.parse(req.url).pathname.replace("/","");
   res.sendFile(fileName, {root: __dirname});
-  console.log("use:", fileName); 
+  //console.log("use:", fileName); 
 });
 
 //http 서버 생성
@@ -20,27 +33,27 @@ server.listen(3000, () => {
   console.log("listening at http://127.0.0.1:3000...");
 });
 
-//클로저를 사용해, private한 유니크 id를 만든다
-const uniqueID = (function(){
-  let id = 0;
-  return function(){ return id++; };
-})();
-
 //서버 소켓 생성
 const socket = require('socket.io')(server);
+
 //소켓 Connection 이벤트 함수
 socket.on('connection', function(client){
-  //클라이언트 고유값 생성 
-  const clientID = uniqueID();
-  console.log('Connection: '+ clientID);
+  const nickname = uniqueID(queryData);
+  let today = new Date();   
+  let hours = today.getHours(); // 시
+  let minutes = today.getMinutes();  // 분
+  let seconds = today.getSeconds();  // 초
+  
+  console.log('Connection: '+ nickname);
+  console.log('time: ' + hours + ':' + minutes + ':' + seconds);
   client.on('serverEntrance', function(data) {
     //클라이언트 이벤트 호출  
-    socket.sockets.emit('clientEntrance', clientID);
+    socket.sockets.emit('clientEntrance', nickname);
   });
 
   //서버 receive 이벤트 함수(클라이언트에서 호출 할 이벤트)    
   client.on('serverReceiver', function(value){
     //클라이언트 이벤트 호출     
-    socket.sockets.emit('clientReceiver', {clientID: clientID, message: value});  
+    socket.sockets.emit('clientReceiver', {nickname: nickname, message: value});  
   });
 });

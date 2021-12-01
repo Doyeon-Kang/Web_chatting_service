@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <title>웹 채팅 서비스</title>
+  <script src="login.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div>
+    <div id="wrap">
+      <div id="header">랜덤채팅 웹서비스</div>
+      <div id="content-container">
+        <div id="title">랜덤채팅+</div>
+        <form id="nameInput" action="chatServer.js" method="get" accept-charset="UTF-8">
+          <input type='text' id='nickname' name="nickname" placeholder="닉네임을 입력해주세요">
+          <button type="submit">입력</button>
+        </form>
+        <span>채팅에서 사용할 닉네임을 입력해주세요.</span>
+      </div>
+      <div id="footer">찾아오시는길 | 연락처 | 고객센터문의</div>
+    </div>
+  </div>
+</body>
+
+</html>
