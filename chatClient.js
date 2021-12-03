@@ -37,6 +37,14 @@ window.onload = function(){
     //채팅창 스크롤바 내리기  
     div.scrollTop = div.scrollHeight;   
   });
+
+  socket.on('clientDisconnect', function(ID){    
+    //채팅창에 메세지 출력하기
+    let message = "**'" + ID + "'님이 퇴장하셨습니다**";
+    div.innerText += message + '\r\n';
+    //채팅창 스크롤바 내리기  
+    div.scrollTop = div.scrollHeight;   
+  });
 };
 
   
