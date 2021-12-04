@@ -2,32 +2,44 @@
 
 <head>
   <title>웹 채팅 서비스</title>
+  <script src="chatServer.js"></script>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <link href="style.css" rel="stylesheet">
+
+  <script>
+    let room = "<span>개설채팅방: </span>";
+    $(document).ready(function () {
+      $.ajax({
+        url: '/',
+        type: 'POST',
+        data: {},
+        success: function (data) {
+          for (let i = 0; i < data.length; i++) {
+            room += "<span style='text-decoration:underline'>" + data[i] + " </span>";
+            $('#roomList').html(room);
+          }
+        }
+      })
+    })
+  </script>
 </head>
 
 <body>
-  <script>
-    window.onload = function () {
-      fetch('chatServer.js').then(res => res.json)
-        .then(data => console.log(data))
-        .catch(error => console.log('ERROR'));
-    }
-  </script>
   <div>
     <div id="wrap">
       <div id="header">랜덤채팅 웹서비스</div>
       <div id="content-container">
         <div id="title">랜덤채팅+</div>
-        <form id="nameInput" action="chatServer.js" method="get" accept-charset="UTF-8">
+        <form id="nameInput" action="chatServer" method="get" accept-charset="UTF-8">
           <input type='text' id='roomname' name="roomname" class="txt" placeholder="채팅방 이름을 입력해주세요">
           <input type='text' id='nickname' name="nickname" class="txt" placeholder="닉네임을 입력해주세요">
           <button type="submit">입력</button>
         </form>
         <span>채팅에서 사용할 닉네임과 입장할 채팅방을 입력해주세요.</span>
-        <span id="roomList">개설채팅방: </span>
+        <span id="roomList"> </span>
       </div>
-      <div id="footer">찾아오시는길 | 연락처 | 고객센터문의</div>
+      <div id="footer"></div>
     </div>
   </div>
 </body>

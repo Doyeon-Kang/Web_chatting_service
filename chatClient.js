@@ -3,6 +3,7 @@ window.onload = function(){
   const socket = io.connect('ws://127.0.0.1:3000');
   //DOM 참조
   const roomList = document.getElementById('roomList');
+  const roomName = document.getElementById('roomName');
   const div = document.getElementById('message');
   const txt = document.getElementById('txtChat');
   const foot = document.getElementById('footer');
@@ -29,6 +30,7 @@ window.onload = function(){
     let mention = "**'" + data.nickname + "'님이 입장하셨습니다**";
     div.innerText += mention + '\r\n';
     div.scrollTop = div.scrollHeight;   
+    roomName.innerHTML = "랜덤채팅 웹서비스 | " +data.roomname; 
     foot.innerHTML = "<span>참여자:" + data.member + "</span>"; 
   });
 

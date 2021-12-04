@@ -14,11 +14,15 @@ app.get("/", function(req, res){
   res.sendFile("./login.html", {root: __dirname});
 });
 
-app.get("/chatServer.js", function(req, res) {
+app.get("/chatServer", function(req, res) {
   queryData = url.parse(req.url, true).query.nickname;
   queryData2 = url.parse(req.url, true).query.roomname;
   //console.log("room: " +queryData2);
   res.sendFile("chatClient.html", {root: __dirname});
+})
+
+app.post("/", function(req, res) {
+  res.send(roomList);
 })
 
 const uniqueID = function(name) {

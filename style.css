@@ -108,7 +108,12 @@ a {
 }
 
 #footer {
+  height: 20px;
   background-color: ivory;
+}
+
+#footer span {
+  font-weight: 600;
 }
 
 @media all and (max-width: 768px) {
