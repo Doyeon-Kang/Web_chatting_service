@@ -1,6 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
 body {
   background-color: #b3e5fc;
   margin: 0px;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 #wrap {
@@ -12,18 +25,22 @@ body {
 
 #header {
   background-color: #ffee58;
-  height: 5%;
+  height: 50px;
   padding: 0px 10px;
-  line-height: 35px;
+  line-height: 50px;
   font-weight: 700;
 }
 
 #content-container {
-  width: 500px;
+  width: 60%;
   margin: 20px auto 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#content-container span {
+  text-align: center;
 }
 
 #title {
@@ -34,7 +51,7 @@ body {
 #message {
   background-color: #e1f5fe;
   width: 100%;
-  height: 250px;
+  height: 350px;
   OVERFLOW-Y: auto;
   word-wrap: break-word
 }
@@ -44,13 +61,60 @@ body {
   width: 100%;
 }
 
+#nameInput {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+#nameInput .txt {
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px 50px;
+  text-align: center;
+}
+
+#nameInput button {
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  width: auto;
+
+  border: none;
+  border-radius: 4px;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
 #txtChat {
   width: 100%;
+  height: 35px;
   background-color: white;
   border: 3px solid black;
   border-radius: 5px;
 }
 
+#roomList {
+  background-color: white;
+}
+
 #footer {
   background-color: ivory;
+}
+
+@media all and (max-width: 768px) {
+  /* login */
+
+
+  /* chatting */
+  
 }
