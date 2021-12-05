@@ -2,7 +2,7 @@
 web chatting service with nodejs
 
 ## 프로젝트 명
-Node.js 소켓통신을 이용한 랜덤채팅 서비스
+Node.js 소켓통신을 이용한 랜덤채팅 웹서비스
 
 ## 프로젝트 멤버 및 역할
 팀원 - 강도연(개인 프로젝트) 
